@@ -1,61 +1,119 @@
+import React, { useState } from 'react';
+
+// Pages
+import { ExecutiveDashboard } from './pages/ExecutiveDashboard';
+import { BuyerDashboard } from './pages/BuyerDashboard';
+import { SupplierManagement } from './pages/SupplierManagement';
+import { AuctionRoom } from './pages/AuctionRoom';
+import { AICopilot } from './pages/AICopilot';
+import { DigitalTwin } from './pages/DigitalTwin';
+import { Analytics } from './pages/Analytics';
+import { CommodityHedging } from './pages/CommodityHedging';
+import { RFQManager } from './pages/RFQManager';
+import { Login } from './pages/Login';
+import { Register } from './pages/Register';
+
+// Components
+import { Navbar } from './components/Navbar';
 import { Sidebar } from './components/Sidebar';
-import { AuctionBoard } from './components/AuctionBoard';
-import { SupplierRiskProfile } from './components/SupplierRiskProfile';
 
-function App() {
+type Page = 'executive' | 'buyer' | 'supplier' | 'rfq' | 'auction' | 'commodity' | 'copilot' | 'twin' | 'analytics' | 'login' | 'register';
+
+const App: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState<Page>('executive');
+  const [isAuthenticated] = useState(true); // mock auth state
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
+  if (!isAuthenticated) {
+    return <Login />;
+  }
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'executive': return <ExecutiveDashboard />;
+      case 'buyer': return <BuyerDashboard />;
+      case 'supplier': return <SupplierManagement />;
+      case 'rfq': return <RFQManager />;
+      case 'auction': return <AuctionRoom />;
+      case 'commodity': return <CommodityHedging />;
+      case 'copilot': return <AICopilot />;
+      case 'twin': return <DigitalTwin />;
+      case 'analytics': return <Analytics />;
+      case 'login': return <Login />;
+      case 'register': return <Register />;
+      default: return <ExecutiveDashboard />;
+    }
+  };
+
+  const navItems = [
+    { id: 'executive', label: 'Executive Dashboard', icon: '📊' },
+    { id: 'buyer', label: 'Buyer Workspace', icon: '🛒' },
+    { id: 'supplier', label: 'Suppliers', icon: '🏭' },
+    { id: 'rfq', label: 'RFQ Manager', icon: '📋' },
+    { id: 'auction', label: 'Auction Room', icon: '🔴' },
+    { id: 'commodity', label: 'Commodity & Hedging', icon: '📈' },
+    { id: 'copilot', label: 'AI Copilot', icon: '🤖' },
+    { id: 'twin', label: 'Digital Twin', icon: '🔬' },
+    { id: 'analytics', label: 'Analytics', icon: '📉' },
+  ];
+
   return (
-    <div className="min-h-screen bg-dark-950 flex font-sans text-gray-100 selection:bg-primary-500/30 selection:text-primary-200">
-      <Sidebar />
-      
-      {/* Main Content Area */}
-      <main className="flex-1 flex flex-col h-screen overflow-hidden">
-        
-        {/* Top Navbar */}
-        <header className="h-16 border-b border-dark-800 bg-dark-950/80 backdrop-blur-md flex items-center px-8 justify-between shrink-0">
-          <div className="flex items-center gap-4">
-            <h1 className="text-xl font-semibold text-white">Dashboard Overview</h1>
-            <span className="px-3 py-1 bg-dark-800 border border-dark-700 rounded-full text-xs font-medium text-gray-400">
-              Q3 2026 Active
-            </span>
-          </div>
-          <div className="flex gap-4">
-            <button className="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors">Help</button>
-            <button className="px-4 py-2 text-sm font-medium bg-primary-600 hover:bg-primary-500 text-white rounded-md transition-colors shadow-[0_0_15px_rgba(20,184,166,0.2)]">
-              + New Initiative
-            </button>
-          </div>
-        </header>
-
-        {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto p-8">
-          
-          {/* Quick Metrics */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            {[
-              { label: 'Active RFQs', value: '24', trend: '+12%', color: 'text-white' },
-              { label: 'Live Auctions', value: '4', trend: '+1', color: 'text-primary-400' },
-              { label: 'High Risk Suppliers', value: '3', trend: '-2', color: 'text-red-400' },
-              { label: 'Projected Savings', value: '$1.2M', trend: '+15%', color: 'text-green-400' }
-            ].map((metric, i) => (
-              <div key={i} className="glass-panel p-5">
-                <h3 className="text-gray-400 text-sm font-medium mb-2">{metric.label}</h3>
-                <div className="flex items-end gap-3">
-                  <div className={`text-3xl font-bold ${metric.color}`}>{metric.value}</div>
-                  <div className="text-sm text-gray-500 mb-1">{metric.trend}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-            <AuctionBoard auctionId="AUC-1920-44" />
-            <SupplierRiskProfile />
-          </div>
-
+    <div className="flex h-screen bg-dark-950 text-gray-100 overflow-hidden">
+      {/* Sidebar */}
+      <aside className={`${sidebarCollapsed ? 'w-20' : 'w-64'} bg-dark-900 border-r border-dark-800 flex flex-col transition-all duration-300 flex-shrink-0`}>
+        <div className="p-4 border-b border-dark-800 flex items-center justify-between">
+          {!sidebarCollapsed && (
+            <h1 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
+              PMBIDMATRIX
+            </h1>
+          )}
+          <button
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            className="p-1.5 rounded-lg hover:bg-dark-800 text-gray-400 transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+          </button>
         </div>
+
+        <nav className="flex-grow p-3 space-y-1 overflow-y-auto">
+          {navItems.map(item => (
+            <button
+              key={item.id}
+              onClick={() => setCurrentPage(item.id as Page)}
+              className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
+                currentPage === item.id
+                  ? 'bg-indigo-600/20 text-indigo-400 border border-indigo-500/30'
+                  : 'text-gray-400 hover:bg-dark-800 hover:text-gray-200'
+              }`}
+            >
+              <span className="text-lg">{item.icon}</span>
+              {!sidebarCollapsed && <span>{item.label}</span>}
+            </button>
+          ))}
+        </nav>
+
+        <div className="p-4 border-t border-dark-800">
+          <div className="flex items-center space-x-3">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-white text-sm shadow-lg">
+              AU
+            </div>
+            {!sidebarCollapsed && (
+              <div>
+                <div className="text-sm font-medium text-gray-200">Admin User</div>
+                <div className="text-xs text-gray-500">CPO</div>
+              </div>
+            )}
+          </div>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-grow overflow-y-auto">
+        <Navbar />
+        {renderPage()}
       </main>
     </div>
-  )
-}
+  );
+};
 
 export default App;

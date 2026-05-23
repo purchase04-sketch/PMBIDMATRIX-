@@ -1,9 +1,10 @@
 import { Router } from 'express';
+import { submitBid, getBidsForAuction, getBidHistory } from '../controllers/bid.controller';
 
 const router = Router();
 
-router.get('/auction/:auctionId', (req, res) => res.json({ message: 'Get bids for auction' }));
-router.post('/', (req, res) => res.json({ message: 'Submit a new bid' }));
-router.get('/history/:supplierId', (req, res) => res.json({ message: 'Get bid history for supplier' }));
+router.get('/auction/:auctionId', getBidsForAuction);
+router.post('/', submitBid);
+router.get('/history/:supplierId', getBidHistory);
 
 export default router;

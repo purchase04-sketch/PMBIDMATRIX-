@@ -1,11 +1,12 @@
 import { Router } from 'express';
+import { getAllPRs, getPRById, createPR, approvePR, rejectPR } from '../controllers/pr.controller';
 
 const router = Router();
 
-router.get('/', (req, res) => res.json({ message: 'Get all PRs' }));
-router.get('/:id', (req, res) => res.json({ message: 'Get PR by id' }));
-router.post('/', (req, res) => res.json({ message: 'Create PR' }));
-router.put('/:id/approve', (req, res) => res.json({ message: 'Approve PR' }));
-router.put('/:id/reject', (req, res) => res.json({ message: 'Reject PR' }));
+router.get('/', getAllPRs);
+router.get('/:id', getPRById);
+router.post('/', createPR);
+router.put('/:id/approve', approvePR);
+router.put('/:id/reject', rejectPR);
 
 export default router;

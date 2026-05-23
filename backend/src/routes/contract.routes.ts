@@ -1,10 +1,11 @@
 import { Router } from 'express';
+import { getAllContracts, getContractById, createContract, updateContract } from '../controllers/contract.controller';
 
 const router = Router();
 
-router.get('/', (req, res) => res.json({ message: 'Get all contracts' }));
-router.post('/', (req, res) => res.json({ message: 'Create contract' }));
-router.get('/:id', (req, res) => res.json({ message: 'Get contract by id' }));
-router.put('/:id', (req, res) => res.json({ message: 'Update contract' }));
+router.get('/', getAllContracts);
+router.post('/', createContract);
+router.get('/:id', getContractById);
+router.put('/:id', updateContract);
 
 export default router;

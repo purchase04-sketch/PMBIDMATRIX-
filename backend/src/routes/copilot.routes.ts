@@ -1,8 +1,9 @@
 import { Router } from 'express';
+import { processQuery, getSuggestions } from '../controllers/copilot.controller';
 
 const router = Router();
 
-router.post('/query', (req, res) => res.json({ message: 'Process natural language query' }));
-router.get('/suggestions', (req, res) => res.json({ message: 'Get prompt suggestions' }));
+router.post('/query', processQuery);
+router.get('/suggestions', getSuggestions);
 
 export default router;

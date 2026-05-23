@@ -1,8 +1,9 @@
 import { Router } from 'express';
+import { getScenarios, runSimulation } from '../controllers/digitalTwin.controller';
 
 const router = Router();
 
-router.post('/simulate', (req, res) => res.json({ message: 'Run digital twin simulation' }));
-router.get('/scenarios', (req, res) => res.json({ message: 'Get available scenarios' }));
+router.get('/scenarios', getScenarios);
+router.post('/simulate', runSimulation);
 
 export default router;

@@ -1,9 +1,10 @@
 import { Router } from 'express';
+import { getDashboardStats, getSavingsTrend, getAuctionEfficiency } from '../controllers/dashboard.controller';
 
 const router = Router();
 
-router.get('/stats', (req, res) => res.json({ message: 'Get aggregated dashboard stats' }));
-router.get('/savings', (req, res) => res.json({ message: 'Get savings trend' }));
-router.get('/efficiency', (req, res) => res.json({ message: 'Get auction efficiency' }));
+router.get('/stats', getDashboardStats);
+router.get('/savings', getSavingsTrend);
+router.get('/efficiency', getAuctionEfficiency);
 
 export default router;

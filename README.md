@@ -1,106 +1,88 @@
-# PMBIDMATRIX - Smart Procurement Intelligence Platform
+# PMBIDMATRIX - Smart Procurement Intelligence & Auction Platform
 
-> AI-Powered Procurement, RFQ, Reverse Auction & Oracle ERP Integration Platform
+An enterprise-grade, AI-powered Smart Procurement, RFQ, Reverse Auction, and Oracle ERP Integration Platform.
 
-## 🚀 Overview
-
-PMBIDMATRIX is a next-generation, enterprise-grade procurement automation platform designed for manufacturing organizations. It combines AI intelligence with real-time auction capabilities and Oracle ERP integration.
-
-### Key Features
-
-- **AI-Powered Procurement Intelligence** - Supplier recommendations, risk scoring, commodity forecasting
-- **Real-Time Auction Engine** - Reverse/Forward/Multi-lot auctions with WebSocket bidding
-- **Complete RFQ Workflow** - PR → PI → RFQ → Auction → PO lifecycle
-- **Oracle ERP Integration** - Bi-directional sync with Oracle Procurement Cloud
-- **Commodity Hedging** - AI-driven hedging recommendations for raw materials
-- **Digital Twin Simulation** - What-if scenarios for supply chain disruptions
-- **AI Copilot** - Natural language procurement commands
-- **Multi-Channel Notifications** - Email, SMS, WhatsApp, Push, In-app
-
-## 🏗️ Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React 18, TypeScript, Tailwind CSS, Vite, Recharts, Framer Motion |
-| Backend | Node.js, Express.js, TypeScript, Socket.IO |
-| Database | MongoDB Atlas |
-| Auth | JWT, bcrypt, RBAC |
-| Real-time | WebSocket (Socket.IO) |
-| AI/ML | OpenAI API, Time-series forecasting |
-
-## 📁 Project Structure
+## 🏗️ Architecture
 
 ```
-PMBIDMATRIX/
-├── backend/          # Express.js API server
+├── backend/          # Node.js + Express + TypeScript + Socket.IO
 │   ├── src/
-│   │   ├── config/       # Database & socket config
-│   │   ├── controllers/  # Route handlers
-│   │   ├── middleware/   # Auth, error handling, rate limiting
-│   │   ├── models/       # Mongoose schemas
-│   │   ├── routes/       # API routes
-│   │   ├── services/     # Business logic & AI services
-│   │   ├── sockets/      # WebSocket handlers
-│   │   └── utils/        # Helpers & seed data
-│   └── server.ts
-├── frontend/         # React SPA
+│   │   ├── config/       # MongoDB Atlas & Socket.IO configuration
+│   │   ├── controllers/  # Business logic for all modules
+│   │   ├── models/       # 11 Mongoose schemas
+│   │   ├── routes/       # 14 Express route modules
+│   │   ├── services/     # AI, Digital Twin, ERP Sync, Hedging engines
+│   │   ├── sockets/      # Real-time WebSocket auction bidding
+│   │   ├── middleware/    # Auth, RBAC, Rate Limiting, Validation
+│   │   └── server.ts     # Application entry point
+├── frontend/         # React + TypeScript + Tailwind + Redux + Vite
 │   ├── src/
-│   │   ├── components/   # Reusable UI components
-│   │   ├── pages/        # Page components
-│   │   ├── store/        # State management
-│   │   └── hooks/        # Custom hooks
-│   └── index.html
-├── docs/             # Architecture documentation
+│   │   ├── components/   # Navbar, Sidebar, KPICard, DataTable, ChatBubble
+│   │   ├── store/        # Redux Toolkit (5 slices)
+│   │   ├── hooks/        # Custom React hooks
+│   │   ├── pages/        # 11 premium dashboard pages
+│   │   └── services/     # API client
+├── docs/             # 7 enterprise architectural documents
 ├── docker-compose.yml
-└── README.md
+├── Dockerfile.backend / Dockerfile.frontend
+├── nginx.conf
+└── .github/workflows/ci-cd.yml
 ```
 
-## 🔧 Setup & Installation
+## 🚀 Quick Start
 
-### Prerequisites
-- Node.js 18+
-- MongoDB Atlas account
-- Git
-
-### Backend Setup
 ```bash
+# Backend
 cd backend
 npm install
-cp .env.example .env  # Configure your environment
-npm run seed          # Seed demo data
-npm run dev           # Start dev server on port 5000
-```
+npm run dev
 
-### Frontend Setup
-```bash
+# Frontend
 cd frontend
 npm install
-npm run dev           # Start dev server on port 5173
+npm run dev
 ```
 
-## 🌐 Environment Variables
+## 🐳 Docker
+
+```bash
+docker-compose up --build
+```
+
+## 📦 Modules
+
+| Module | Description |
+|--------|-------------|
+| **Reverse Auction Engine** | Real-time WebSocket bidding with anti-sniping & auto-extend |
+| **RFQ Manager** | Create, publish, evaluate, and award RFQs |
+| **Supplier Management** | AI risk scoring, KYC, performance tracking |
+| **Commodity Hedging** | LME price tracking, volatility analysis, forward contracts |
+| **AI Copilot** | Natural language procurement intelligence queries |
+| **Digital Twin** | Supply chain stress-test simulation engine |
+| **Oracle ERP Sync** | Mock integration with cron-based data synchronization |
+| **Analytics Dashboard** | YTD savings, auction efficiency, spend analysis |
+
+## 🔐 Environment Variables
+
+Create a `.env` file in the `backend/` directory:
 
 ```env
-MONGO_URI=mongodb+srv://...
-JWT_SECRET=your-secret-key
+MONGO_URI=mongodb+srv://<user>:<pass>@cluster0.mongodb.net/pmbidmatrix
+JWT_SECRET=your-jwt-secret
 PORT=5000
 NODE_ENV=development
+CORS_ORIGIN=http://localhost:3000
 ```
 
-## 📊 Modules
+## 📄 Documentation
 
-1. **Dashboard** - Executive, Buyer, Supplier, Analytics views
-2. **Supplier Management** - Onboarding, KYC, ratings, risk tracking
-3. **Purchase Requisitions** - Create, approve, track PRs
-4. **Purchase Indents** - Indent management linked to PRs
-5. **RFQ Management** - Create, publish, evaluate, award RFQs
-6. **Auction Engine** - Real-time reverse/forward auctions
-7. **Purchase Orders** - Auto-generated POs from auctions
-8. **Contracts** - Contract lifecycle management
-9. **Commodity Intelligence** - Price tracking, hedging, risk scores
-10. **AI Copilot** - Natural language procurement assistant
-11. **Digital Twin** - Supply chain simulation
-12. **Notifications** - Multi-channel alert system
+- [Enterprise Architecture](docs/01_enterprise_architecture.md)
+- [Oracle Integration](docs/02_oracle_integration.md)
+- [Database Design](docs/03_database_design.md)
+- [Deployment & Infrastructure](docs/04_deployment_infra.md)
+- [AI & Security Roadmap](docs/05_ai_security_roadmap.md)
+- [API Documentation](docs/06_api_documentation.md)
+- [UI Wireframes](docs/07_ui_wireframes.md)
 
 ## 📜 License
 
