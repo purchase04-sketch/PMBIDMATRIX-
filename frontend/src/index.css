@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-950 text-gray-100;
+  }
+}
+
+.glass-panel {
+  @apply bg-dark-900/50 backdrop-blur-md border border-dark-800 rounded-xl shadow-xl;
+}
+
+.glow-primary {
+  box-shadow: 0 0 20px rgba(20, 184, 166, 0.15);
+}
