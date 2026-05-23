@@ -9,6 +9,8 @@ import { connectDatabase } from './config/database';
 import { initSocket } from './config/socket';
 import { errorHandler, notFound, rateLimiter } from './middleware/errorHandler';
 import authRoutes from './routes/auth.routes';
+import rfqRoutes from './routes/rfq.routes';
+import auctionRoutes from './routes/auction.routes';
 
 // Load environment variables
 dotenv.config();
@@ -32,6 +34,8 @@ app.use(rateLimiter(200, 60000));
 
 // Routes
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/rfq', rfqRoutes);
+app.use('/api/v1/auction', auctionRoutes);
 
 // Base route
 app.get('/', (req, res) => {
