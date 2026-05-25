@@ -1,6 +1,6 @@
 import React from 'react';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
-import { AlertTriangle, TrendingUp, TrendingDown, DollarSign } from 'lucide-react';
+import { AlertTriangle, TrendingUp, TrendingDown, DollarSign, Cpu } from 'lucide-react';
 
 const mockPriceData = [
   { date: 'Jan', price: 4200, forecast: 4200 },

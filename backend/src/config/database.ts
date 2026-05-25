@@ -7,11 +7,11 @@ const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://himanshu12mathpal_db_u
 
 export const connectDatabase = async (): Promise<void> => {
   try {
+    mongoose.set('bufferCommands', false);
     const conn = await mongoose.connect(MONGO_URI);
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error('❌ MongoDB connection error:', error);
-    process.exit(1);
+    console.error('❌ MongoDB connection error (non-fatal, server continuing):', error);
   }
 };
 

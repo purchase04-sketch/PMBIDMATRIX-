@@ -3,11 +3,15 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
+  root: process.cwd(),
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(process.cwd(), './src'),
     },
+  },
+  optimizeDeps: {
+    entries: [],
   },
   server: {
     port: 3000,
